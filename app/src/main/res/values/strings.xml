@@ -1,3 +1,22 @@
 <resources>
     <string name="app_name">The Ride Sharing App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="help_fragment_text">
+        <![CDATA[
+            <h3>Ride Sharing App</h3> <p>This ap can be used for the user to request or offer rides to destinations,
+            using an in-app point system where giving a ride offers you a point, which you can then spend
+            to request a ride.<br/><br/>
+             <b>Placeholder</b><br/>
+             Here the user can ____<br/><br/>
+             <b>Placeholder</b><br/>
+             Here the user can ____<br/><br/>
+             <b>Close app</b><br/>
+             The app will be closed.<br/><br/>
+             <b>Get help</b><br/>
+             Useful help information about the app will be displayed.<br/><br/>
+        ]]>
+    </string>
 </resources>
