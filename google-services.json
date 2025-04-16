@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "409049544587",
+    "project_id": "cool-carpool-b2852",
+    "storage_bucket": "cool-carpool-b2852.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:409049544587:android:75b98f9b28c40d4126618e",
+        "android_client_info": {
+          "package_name": "edu.uga.cs.theridesharingapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAPVk1BRtX0SGCh_beUPeHoRoe2h5vEzTo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
