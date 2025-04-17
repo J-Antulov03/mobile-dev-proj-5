@@ -3,6 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <group android:checkableBehavior="single">
 
+        <item
+            android:id="@+id/menu_rides"
+            android:icon="@drawable/ic_baseline_help_24"
+            android:orderInCategory="3"
+            android:title="View Rides"
+            app:showAsAction="never" />
+
 
         <item
             android:id="@+id/menu_help"

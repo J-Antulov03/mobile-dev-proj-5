@@ -79,9 +79,10 @@ public class MainActivity extends AppCompatActivity {
         // Create a new fragment based on the used selection in the nav drawer
         if (menuItem.getItemId() == R.id.menu_help) {
             fragment = new HelpFragment();
-        } /*else if (menuItem.getItemId() == R.id.menu_review) {
-            fragment = new ReviewQuizGrades();
-        } else if (menuItem.getItemId() == R.id.menu_add){
+        } else if (menuItem.getItemId() == R.id.menu_rides) {
+            Intent intent = new Intent(this, RidesActivity.class);
+            startActivity(intent);
+        } /*else if (menuItem.getItemId() == R.id.menu_add){
             fragment = new NewQuiz();
         } */else if (menuItem.getItemId() == R.id.menu_close){
             System.exit(1);
