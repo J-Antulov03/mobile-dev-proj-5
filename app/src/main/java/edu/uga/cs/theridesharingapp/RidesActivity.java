@@ -1,6 +1,7 @@
 package edu.uga.cs.theridesharingapp;
 
 import android.os.Bundle;
+import android.widget.Button;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,5 +21,9 @@ public class RidesActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        Button requestButton = findViewById(R.id.button1);
+
+
     }
 }
