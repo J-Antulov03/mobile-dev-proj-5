@@ -84,9 +84,9 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         } /*else if (menuItem.getItemId() == R.id.menu_add){
             fragment = new NewQuiz();
-        } */else if (menuItem.getItemId() == R.id.menu_close){
-            System.exit(1);
-            return;
+        } */else if (menuItem.getItemId() == R.id.menu_logout){
+            Intent intent = new Intent(this, LoginPage.class);
+            startActivity(intent);
         } else {
             return;
         };
