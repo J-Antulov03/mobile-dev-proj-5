@@ -29,13 +29,13 @@ public class Ride {
 
     }
 
-    public Ride(String date, String startLoc, String destLoc, String author, Boolean accepted, Boolean rideType) {
+    public Ride(String date, String startLoc, String destLoc, Boolean rideType) {
         this.key = null;
         this.date = date;
         this.startLoc = startLoc;
         this.destLoc = destLoc;
-        this.author = author;
-        this.accepted = accepted;
+        this.author = null;
+        this.accepted = null;
         this.rideType = rideType;
     }
 

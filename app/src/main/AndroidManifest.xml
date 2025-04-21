@@ -15,6 +15,9 @@
         android:theme="@style/Theme.TheRideSharingApp"
         tools:targetApi="31">
         <activity
+            android:name=".AddRideActivity"
+            android:exported="false" />
+        <activity
             android:name=".RideOffersActivity"
             android:exported="false" />
         <activity
