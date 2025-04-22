@@ -16,6 +16,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.google.android.gms.tasks.OnCanceledListener;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -72,30 +73,45 @@ public class LoginPage extends AppCompatActivity {
 
         @Override
         public void onClick(View v) {
+
             mAuth = FirebaseAuth.getInstance();
+
             emailView = findViewById( R.id.editTextText );
             passwordView = findViewById( R.id.editTextTextPassword );
 
             email = emailView.getText().toString();
             password = passwordView.getText().toString();
 
+            //mAuth.signOut(); // Clear any existing session
+
+
+
+            Log.d("here","here");
 
             mAuth.signInWithEmailAndPassword( email, password )
                     .addOnCompleteListener( LoginPage.this, new OnCompleteListener<AuthResult>() {
+
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
+                            Log.d("here2", "here2");
                             if (task.isSuccessful()) {
                                 // Sign in success
-                                Log.d( TAG, "signInWithEmail:success" );
+                                Log.d(TAG, "signInWithEmail:success");
                                 FirebaseUser user = mAuth.getCurrentUser();
                                 Intent intent = new Intent(LoginPage.this, MainActivity.class);
                                 startActivity(intent);
-                            }
-                            else {
+                            } else {
                                 // If sign in fails
-                                Log.d( TAG, "signInWithEmail:failure", task.getException() );
+                                Log.d(TAG, "signInWithEmail:failure", task.getException());
                                 Toast.makeText(LoginPage.this, "Incorrect Login or Password", Toast.LENGTH_SHORT).show();
                             }
+                            Log.d("here3", "here3");
+
+                        }
+                    }).addOnCanceledListener(LoginPage.this, new OnCanceledListener() {
+                        @Override
+                        public void onCanceled() {
+                            Log.d("Sign In Listener", "Error, the sign in was cancelled.");
                         }
                     });
 

@@ -81,11 +81,9 @@ public class MainActivity extends AppCompatActivity {
             fragment = new HelpFragment();
         } else if (menuItem.getItemId() == R.id.menu_rides) {
             fragment = new RidesFragment();
-            //Intent intent = new Intent(this, RidesActivity.class);
-            //startActivity(intent);
-        } /*else if (menuItem.getItemId() == R.id.menu_add){
-            fragment = new NewQuiz();
-        } */else if (menuItem.getItemId() == R.id.menu_logout){
+        } else if (menuItem.getItemId() == R.id.menu_my_rides){
+            fragment = new MyRidesFragment();
+        } else if (menuItem.getItemId() == R.id.menu_logout){
             Intent intent = new Intent(this, LoginPage.class);
             startActivity(intent);
         } else {

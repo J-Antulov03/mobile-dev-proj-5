@@ -13,9 +13,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-public class RidesFragment extends Fragment {
+public class MyRidesFragment extends Fragment {
 
-    public RidesFragment() {
+    public MyRidesFragment() {
         // Required empty public constructor
     }
 
@@ -23,42 +23,29 @@ public class RidesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_rides, container, false);
+        return inflater.inflate(R.layout.fragment_my_rides, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button requestButton = view.findViewById(R.id.button1);
-        Button offerButton = view.findViewById(R.id.button2);
+        Button acceptedRidesButton = view.findViewById(R.id.button1);
+        Button postedRidesButton = view.findViewById(R.id.button2);
         Button addButton = view.findViewById(R.id.AddButton);
 
-        requestButton.setOnClickListener(new RequestButtonClickListener());
-        offerButton.setOnClickListener(new OfferButtonClickListener());
+        acceptedRidesButton.setOnClickListener(new acceptedRidesButtonClickListener());
+        postedRidesButton.setOnClickListener(new postedRidesButtonClickListener());
         addButton.setOnClickListener(new AddRideButtonClickListener());
-
-        //loadFragment(new RideOffersFragment());
     }
 
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
 
-        transaction.replace(R.id.fragmentContainerView1, fragment);
+        transaction.replace(R.id.fragmentContainerView2, fragment);
 
         transaction.commit();
-
-        /*Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragmentContainerView1);
-        if (currentFragment != null) {
-            transaction.remove(currentFragment);
-        }
-
-        //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-        transaction.replace(R.id.fragmentContainerView1, fragment);
-        //transaction.addToBackStack(null);
-        transaction.commit();*/
     }
 
     private class AddRideButtonClickListener implements View.OnClickListener {
@@ -69,18 +56,17 @@ public class RidesFragment extends Fragment {
         }
     }
 
-    private class OfferButtonClickListener implements View.OnClickListener {
+    private class postedRidesButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            RideOffersFragment offersFragment = new RideOffersFragment();
-            loadFragment(offersFragment);
+            loadFragment(new PostedRidesFragment());
         }
     }
 
-    private class RequestButtonClickListener implements View.OnClickListener {
+    private class acceptedRidesButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
-            loadFragment(new RideRequestsFragment());
+            loadFragment(new AcceptedRidesFragment());
 
         }
     }

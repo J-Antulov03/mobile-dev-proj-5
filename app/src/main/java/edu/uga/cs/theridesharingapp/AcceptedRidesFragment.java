@@ -22,6 +22,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,7 +35,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class RideRequestsFragment extends Fragment {
+public class AcceptedRidesFragment extends Fragment {
 
     public static final String DEBUG_TAG = "RideOffersFragment";
     private RecyclerView recyclerView;
@@ -50,7 +52,7 @@ public class RideRequestsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_ride_requests, container, false);
+        return inflater.inflate(R.layout.fragment_accepted_rides, container, false);
     }
 
     @Override
@@ -59,7 +61,7 @@ public class RideRequestsFragment extends Fragment {
 
         rideList = new ArrayList<Ride>();
 
-        recyclerView = view.findViewById(R.id.requestsRecyclerView);
+        recyclerView = view.findViewById(R.id.acceptedRecyclerView);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
@@ -79,7 +81,14 @@ public class RideRequestsFragment extends Fragment {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Ride ride = postSnapshot.getValue(Ride.class);
                     ride.setKey(postSnapshot.getKey());
-                    if(ride.getRideType()) {
+
+                    FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+                    String userId = currUser.getUid();
+
+                    Log.d("id", "Curr User ID: " + userId);
+                    Log.d("id2", "Current User ID: " + ride.getAuthor());
+
+                    if(ride.getAuthor().equals(userId)) {
                         rideList.add(ride);
                     }
                     Log.d(DEBUG_TAG, "ValueEventListener: added: " + ride);

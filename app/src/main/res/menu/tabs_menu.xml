@@ -10,18 +10,24 @@
             android:title="View Rides"
             app:showAsAction="never" />
 
+        <item
+            android:id="@+id/menu_my_rides"
+            android:icon="@drawable/ic_baseline_help_24"
+            android:orderInCategory="3"
+            android:title="View My Rides"
+            app:showAsAction="never" />
 
         <item
             android:id="@+id/menu_help"
             android:icon="@drawable/ic_baseline_help_24"
-            android:orderInCategory="3"
+            android:orderInCategory="5"
             android:title="Get help"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/menu_logout"
             android:icon="@drawable/ic_baseline_close_24"
-            android:orderInCategory="4"
+            android:orderInCategory="6"
             android:title="Logout"
             app:showAsAction="ifRoom|withText" />
 

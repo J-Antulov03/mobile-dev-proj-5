@@ -1,8 +1,13 @@
 package edu.uga.cs.theridesharingapp;
 
+import android.content.Context;
+import android.text.format.DateFormat;
+
+import java.util.Date;
+
 public class Ride {
 
-    //date = date and time
+    //date = date and time (upgraded now)
 
     //author = user who posted
 
@@ -10,7 +15,7 @@ public class Ride {
     //rideType = false (offer)
 
     private String key;
-    private String date;
+    private Date date;
     private String startLoc;
     private String destLoc;
     private String author;
@@ -29,7 +34,7 @@ public class Ride {
 
     }
 
-    public Ride(String date, String startLoc, String destLoc, Boolean rideType) {
+    public Ride(Date date, String startLoc, String destLoc, Boolean rideType) {
         this.key = null;
         this.date = date;
         this.startLoc = startLoc;
@@ -42,8 +47,8 @@ public class Ride {
 
     public String getKey(){ return key; }
     public void setKey(String key) { this.key = key; }
-    public String getDate() { return date; }
-    public void setDate(String date) { this.date = date; }
+    public Date getDate() { return date; }
+    public void setDate(Date date) { this.date = date; }
     public String getStartLoc() { return startLoc; }
     public void setStartLoc(String startLoc) { this.startLoc = startLoc; }
     public String getDestLoc() { return destLoc; }
@@ -54,5 +59,17 @@ public class Ride {
     public void setAccepted(Boolean accepted) {this.accepted = accepted; }
     public Boolean getRideType() { return rideType; }
     public void setRideType(Boolean rideType) {this.rideType = rideType; }
-    public String toString() { return date + " " + startLoc + " " + destLoc + " " + accepted + " " + rideType; }
+
+    public String getFormattedDate(Context context) {
+        if (date == null) return "";
+        return DateFormat.getDateFormat(context).format(date) + " " +
+                DateFormat.getTimeFormat(context).format(date);
+    }
+
+    @Override
+    public String toString() {
+        // Note: This won't be able to format the date properly without context
+        return (date != null ? date.toString() : "null") + " " + startLoc + " " +
+                destLoc + " " + accepted + " " + rideType;
+    }
 }

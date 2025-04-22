@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -18,13 +20,7 @@
             android:name=".AddRideActivity"
             android:exported="false" />
         <activity
-            android:name=".RideOffersActivity"
-            android:exported="false" />
-        <activity
             android:name=".UserRegisterActivity"
-            android:exported="false" />
-        <activity
-            android:name=".RidesActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"
