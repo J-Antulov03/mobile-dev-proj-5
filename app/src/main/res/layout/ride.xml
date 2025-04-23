@@ -47,10 +47,22 @@
                 android:textStyle="bold" />
 
             <Button
-                android:id="@+id/button5"
+                android:id="@+id/acceptButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Accept" />
+
+            <Button
+                android:id="@+id/editButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Edit ride" />
+
+            <Button
+                android:id="@+id/deleteButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Delete ride" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </LinearLayout>

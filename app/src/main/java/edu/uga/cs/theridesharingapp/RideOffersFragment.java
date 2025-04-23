@@ -64,7 +64,7 @@ public class RideOffersFragment extends Fragment {
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
 
-        recyclerAdapter = new RidesRecyclerAdapter(requireContext(), rideList);
+        recyclerAdapter = new RidesRecyclerAdapter(requireContext(), rideList, "rideOffers");
         recyclerView.setAdapter( recyclerAdapter );
 
         database = FirebaseDatabase.getInstance();

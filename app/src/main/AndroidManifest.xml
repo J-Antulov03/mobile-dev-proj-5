@@ -20,6 +20,9 @@
             android:name=".AddRideActivity"
             android:exported="false" />
         <activity
+            android:name=".EditRide"
+            android:exported="false" />
+        <activity
             android:name=".UserRegisterActivity"
             android:exported="false" />
         <activity

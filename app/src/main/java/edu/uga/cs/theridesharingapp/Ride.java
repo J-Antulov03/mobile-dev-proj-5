@@ -22,6 +22,7 @@ public class Ride {
     private Boolean accepted;
     private Boolean rideType;
 
+
     public Ride()
     {
         this.key = null;
@@ -31,7 +32,6 @@ public class Ride {
         this.author = null;
         this.accepted = null;
         this.rideType = null;
-
     }
 
     public Ride(Date date, String startLoc, String destLoc, Boolean rideType) {
@@ -59,6 +59,7 @@ public class Ride {
     public void setAccepted(Boolean accepted) {this.accepted = accepted; }
     public Boolean getRideType() { return rideType; }
     public void setRideType(Boolean rideType) {this.rideType = rideType; }
+
 
     public String getFormattedDate(Context context) {
         if (date == null) return "";
