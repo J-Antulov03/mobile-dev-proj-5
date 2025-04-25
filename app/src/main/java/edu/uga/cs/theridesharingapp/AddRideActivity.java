@@ -116,7 +116,11 @@ public class AddRideActivity extends AppCompatActivity {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("rides");
-
+            if(rideType) {
+                ride.setRider(currUser.getEmail());
+            } else {
+                ride.setDriver(currUser.getEmail());
+            }
             myRef.push().setValue(ride)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(getApplicationContext(), "Ride created successfully", Toast.LENGTH_SHORT).show();

@@ -1,10 +1,8 @@
 package edu.uga.cs.theridesharingapp;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,8 +18,10 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ServerValue;
 
 import java.util.List;
+import java.util.Objects;
 
 public class RidesRecyclerAdapter
                     extends RecyclerView.Adapter<RidesRecyclerAdapter.RideHolder>{
@@ -130,7 +130,7 @@ public class RidesRecyclerAdapter
                         Toast.makeText(context, "No current user.", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if (ride.isAccepted()) {
+                    if (ride.getAccepted()) {
                         Toast.makeText(context, "Ride has been accepted.", Toast.LENGTH_SHORT).show();
                         return;
                     }
@@ -151,12 +151,117 @@ public class RidesRecyclerAdapter
             holder.acceptButton.setVisibility(View.GONE);
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
+            holder.completedButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rides").child(ride.getKey());
+                    if(Objects.equals(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid(), ride.getAuthor())) {
+                        ride.setAuthorConfirmation(true);
+                    } else {
+                        ride.setRecipientConfirmation(true);
+                    }
+                    if(ride.isAuthorConfirmation() && ride.isRecipientConfirmation() && !ride.isCompleted()) {
+                        ride.setCompleted(true);
+                        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+                        DatabaseReference author = database.getReference("points").child(ride.getAuthor());
+                        DatabaseReference recipient = database.getReference("points").child(ride.getRecipient());
+                        if(!currUser.getUid().equals(ride.getAuthor())) { //Assuming current user is not the author:
+                            if(Objects.equals(currUser.getEmail(), ride.getDriver())) { //Where the user is not the author, user is driver
+                                author.setValue(ServerValue.increment(-10));
+                                recipient.setValue(ServerValue.increment(10));
+                                Log.w("tag", "User isn't author, user is driver.");
+                            } else { //Where current user is not the author, user is rider.
+                                author.setValue(ServerValue.increment(10));
+                                recipient.setValue(ServerValue.increment(-10));
+                                Log.w("tag", "User isn't author, user is rider.");
+                            }
+                        } else { //Now do the opposite:
+                            if(Objects.equals(currUser.getEmail(), ride.getRider())) { //Where the user is the author, user is rider
+                                author.setValue(ServerValue.increment(-10));
+                                recipient.setValue(ServerValue.increment(10));
+                                Log.w("tag", "User is author, user is rider.");
+                            } else { //Offer where current user is the author, therefor the driver.
+                                author.setValue(ServerValue.increment(10));
+                                recipient.setValue(ServerValue.increment(-10));
+                                Log.w("tag", "User is author, user is driver.");
+                            }
+                        } // maybe delete Ride after transaction is complete
+
+                    }
+                    myRef.setValue(ride);
+                }
+            });
+        } else if (pageType.equals("rideRequests")){
+            holder.editButton.setVisibility(View.GONE);
+            holder.deleteButton.setVisibility(View.GONE);
+            holder.userOneEmail.setVisibility(View.GONE); //these
+            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.completedButton.setVisibility(View.GONE);
+            holder.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rides").child(ride.getKey());
+                    ride.setAccepted(true);
+                    ride.setDriver(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
+                    ride.setRecipient(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    myRef.setValue(ride)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(context, "Ride created successfully", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(context, "Failed to create ride", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
+        } else if (pageType.equals("rideOffers")){
+            holder.editButton.setVisibility(View.GONE);
+            holder.deleteButton.setVisibility(View.GONE);
+            holder.userOneEmail.setVisibility(View.GONE); //these
+            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.completedButton.setVisibility(View.GONE);
+            holder.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rides").child(ride.getKey());
+                    ride.setAccepted(true);
+                    ride.setRider(Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getEmail());
+                    ride.setRecipient(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    myRef.setValue(ride)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(context, "Ride created successfully", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(context, "Failed to create ride", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
         } else {
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
             holder.userOneEmail.setVisibility(View.GONE); //these
             holder.userTwoEmail.setVisibility(View.GONE);
             holder.completedButton.setVisibility(View.GONE);
+            holder.acceptButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("rides").child(ride.getKey());
+                    ride.setAccepted(true);
+                    myRef.setValue(ride)
+                            .addOnSuccessListener(aVoid -> {
+                                Toast.makeText(context, "Ride created successfully", Toast.LENGTH_SHORT).show();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(context, "Failed to create ride", Toast.LENGTH_SHORT).show();
+                            });
+                }
+            });
         }
 
     }

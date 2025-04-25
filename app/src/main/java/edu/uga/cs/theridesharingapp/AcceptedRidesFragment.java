@@ -1,27 +1,17 @@
 package edu.uga.cs.theridesharingapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -34,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class AcceptedRidesFragment extends Fragment {
 
@@ -88,7 +79,7 @@ public class AcceptedRidesFragment extends Fragment {
                     Log.d("id", "Curr User ID: " + userId);
                     Log.d("id2", "Current User ID: " + ride.getAuthor());
 
-                    if((ride.getAuthor().equals(userId)) && (ride.isAccepted())) {
+                    if( !ride.isCompleted() && (ride.getAccepted()) && (Objects.equals(ride.getRider(), currUser.getEmail()) || Objects.equals(ride.getDriver(), currUser.getEmail()))) {
                         rideList.add(ride);
                     }
                     Log.d(DEBUG_TAG, "ValueEventListener: added: " + ride);

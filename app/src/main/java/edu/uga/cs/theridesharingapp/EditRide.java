@@ -115,7 +115,11 @@ public class EditRide extends AppCompatActivity {
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();
             DatabaseReference myRef = database.getReference("rides").child(key);
-
+            if(rideType) {
+                ride.setRider(currUser.getEmail());
+            } else {
+                ride.setDriver(currUser.getEmail());
+            }
             myRef.setValue(ride)
                     .addOnSuccessListener(aVoid -> {
                         Toast.makeText(getApplicationContext(), "Ride created successfully", Toast.LENGTH_SHORT).show();

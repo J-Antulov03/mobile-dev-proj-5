@@ -20,6 +20,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class UserRegisterActivity extends AppCompatActivity {
 
@@ -63,6 +65,10 @@ public class UserRegisterActivity extends AppCompatActivity {
                                 Log.d( DEBUG_TAG, "createUserWithEmail: success" );
 
                                 FirebaseUser user = firebaseAuth.getCurrentUser();
+                                FirebaseDatabase database = FirebaseDatabase.getInstance();
+                                DatabaseReference userPointsKey = database.getReference("points").child(user.getUid());
+                                userPointsKey.setValue(50);
+
 
                                 Intent intent = new Intent( UserRegisterActivity.this, MainActivity.class );
                                 startActivity( intent );

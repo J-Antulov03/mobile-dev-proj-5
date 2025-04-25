@@ -1,27 +1,18 @@
 package edu.uga.cs.theridesharingapp;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.text.HtmlCompat;
-import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 public class RideOffersFragment extends Fragment {
 
@@ -79,7 +71,7 @@ public class RideOffersFragment extends Fragment {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
                     Ride ride = postSnapshot.getValue(Ride.class);
                     ride.setKey(postSnapshot.getKey());
-                    if(!ride.getRideType()) {
+                    if(!ride.isRideType() && !ride.getAccepted() && !Objects.requireNonNull(FirebaseAuth.getInstance().getCurrentUser()).getUid().equals(ride.getAuthor())) {
                         rideList.add(ride);
                     }
                     Log.d(DEBUG_TAG, "ValueEventListener: added: " + ride);
