@@ -110,43 +110,43 @@ public class RidesRecyclerAdapter
         holder.rideEnd.setText("Destination: " + (ride.getDestLoc()));
 
         if(pageType.equals("myRides")) {
-            holder.acceptButton.setVisibility(View.GONE);
-            holder.userOneEmail.setVisibility(View.GONE);
-            holder.userTwoEmail.setVisibility(View.GONE);
-            holder.completedButton.setVisibility(View.GONE);
-            holder.editButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(context, EditRide.class);
-                    intent.putExtra("key", ride.getKey());
-                    context.startActivity(intent);
-                }
-            });
-            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
-                    if (currUser == null) {
-                        Toast.makeText(context, "No current user.", Toast.LENGTH_SHORT).show();
-                        return;
+                holder.acceptButton.setVisibility(View.GONE);
+                holder.userOneEmail.setVisibility(View.GONE);
+                holder.userTwoEmail.setVisibility(View.GONE);
+                holder.completedButton.setVisibility(View.GONE);
+                holder.editButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(context, EditRide.class);
+                        intent.putExtra("key", ride.getKey());
+                        context.startActivity(intent);
                     }
-                    if (ride.getAccepted()) {
-                        Toast.makeText(context, "Ride has been accepted.", Toast.LENGTH_SHORT).show();
-                        return;
+                });
+                holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+                        if (currUser == null) {
+                            Toast.makeText(context, "No current user.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        if (ride.getAccepted()) {
+                            Toast.makeText(context, "Ride has been accepted.", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        new androidx.appcompat.app.AlertDialog.Builder(context)
+                                .setTitle("Confirm Delete")
+                                .setMessage("Are you sure you want to delete this ride from " +
+                                        ride.getStartLoc() + " to " + ride.getDestLoc() + " on " +
+                                        ride.getFormattedDate(context) + "?")
+                                .setPositiveButton("Delete", (dialog, which) -> {
+                                    deleteRide(ride);
+                                })
+                                .setNegativeButton("Cancel", null)
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .show();
                     }
-                    new androidx.appcompat.app.AlertDialog.Builder(context)
-                            .setTitle("Confirm Delete")
-                            .setMessage("Are you sure you want to delete this ride from " +
-                                    ride.getStartLoc() + " to " + ride.getDestLoc() + " on " +
-                                    ride.getFormattedDate(context) + "?")
-                            .setPositiveButton("Delete", (dialog, which) -> {
-                                deleteRide(ride);
-                            })
-                            .setNegativeButton("Cancel", null)
-                            .setIcon(android.R.drawable.ic_dialog_alert)
-                            .show();
-                }
-            });
+                });
         } else if (pageType.equals("acceptedRides")) {
             holder.acceptButton.setVisibility(View.GONE);
             holder.editButton.setVisibility(View.GONE);
