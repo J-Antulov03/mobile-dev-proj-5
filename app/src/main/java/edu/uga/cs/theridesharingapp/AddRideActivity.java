@@ -111,7 +111,7 @@ public class AddRideActivity extends AppCompatActivity {
 
             Boolean rideType = radioGroup.getCheckedRadioButtonId() == R.id.radioButton2;
 
-            Ride ride = new Ride(selectedDateTime.getTime(), startLoc, destLoc, rideType);
+            Ride ride = new Ride(selectedDateTime.getTime(), startLoc, destLoc, false, rideType);
             ride.setAuthor(userId);
 
             FirebaseDatabase database = FirebaseDatabase.getInstance();

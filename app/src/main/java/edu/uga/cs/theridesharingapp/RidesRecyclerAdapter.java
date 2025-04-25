@@ -2,16 +2,24 @@ package edu.uga.cs.theridesharingapp;
 
 import static androidx.core.content.ContextCompat.startActivity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 
@@ -49,6 +57,9 @@ public class RidesRecyclerAdapter
         Button deleteButton;
 
         Button editButton;
+        TextView userOneEmail;
+        TextView userTwoEmail;
+        Button completedButton;
 
         /**
          * default constructor to hold a quiz object
@@ -62,6 +73,10 @@ public class RidesRecyclerAdapter
             acceptButton = itemView.findViewById(R.id.acceptButton);
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);
+
+            userOneEmail = itemView.findViewById(R.id.textView5);
+            userTwoEmail = itemView.findViewById(R.id.textView6);
+            completedButton = itemView.findViewById(R.id.button5);
         }
     }
 
@@ -93,19 +108,55 @@ public class RidesRecyclerAdapter
         holder.date.setText("Date Of Ride: " + ride.getDate());
         holder.rideStart.setText("Starting Location: " + ride.getStartLoc());
         holder.rideEnd.setText("Destination: " + (ride.getDestLoc()));
+
         if(pageType.equals("myRides")) {
             holder.acceptButton.setVisibility(View.GONE);
+            holder.userOneEmail.setVisibility(View.GONE);
+            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.completedButton.setVisibility(View.GONE);
             holder.editButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(context,EditRide.class);
+                    Intent intent = new Intent(context, EditRide.class);
                     intent.putExtra("key", ride.getKey());
                     context.startActivity(intent);
                 }
             });
+            holder.deleteButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    FirebaseUser currUser = FirebaseAuth.getInstance().getCurrentUser();
+                    if (currUser == null) {
+                        Toast.makeText(context, "No current user.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    if (ride.isAccepted()) {
+                        Toast.makeText(context, "Ride has been accepted.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    new androidx.appcompat.app.AlertDialog.Builder(context)
+                            .setTitle("Confirm Delete")
+                            .setMessage("Are you sure you want to delete this ride from " +
+                                    ride.getStartLoc() + " to " + ride.getDestLoc() + " on " +
+                                    ride.getFormattedDate(context) + "?")
+                            .setPositiveButton("Delete", (dialog, which) -> {
+                                deleteRide(ride);
+                            })
+                            .setNegativeButton("Cancel", null)
+                            .setIcon(android.R.drawable.ic_dialog_alert)
+                            .show();
+                }
+            });
+        } else if (pageType.equals("acceptedRides")) {
+            holder.acceptButton.setVisibility(View.GONE);
+            holder.editButton.setVisibility(View.GONE);
+            holder.deleteButton.setVisibility(View.GONE);
         } else {
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
+            holder.userOneEmail.setVisibility(View.GONE); //these
+            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.completedButton.setVisibility(View.GONE);
         }
 
     }
@@ -122,4 +173,27 @@ public class RidesRecyclerAdapter
             return 0;
         }
     }
+
+    private void deleteRide(Ride ride) {
+        DatabaseReference rideRef = FirebaseDatabase.getInstance()
+                .getReference("rides")
+                .child(ride.getKey());
+
+        rideRef.removeValue()
+                .addOnSuccessListener(aVoid -> {
+                    Toast.makeText(context, "Ride deleted", Toast.LENGTH_SHORT).show();
+
+                    int position = rideList.indexOf(ride);
+                    if (position != -1) {
+                        rideList.remove(position);
+                        notifyItemRemoved(position);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(context, "Delete failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                });
+    }
+
+
+
 }
