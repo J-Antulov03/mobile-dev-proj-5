@@ -57,8 +57,8 @@ public class RidesRecyclerAdapter
         Button deleteButton;
 
         Button editButton;
-        TextView userOneEmail;
-        TextView userTwoEmail;
+        TextView riderEmail;
+        TextView driverEmail;
         Button completedButton;
 
         /**
@@ -74,8 +74,8 @@ public class RidesRecyclerAdapter
             deleteButton = itemView.findViewById(R.id.deleteButton);
             editButton = itemView.findViewById(R.id.editButton);
 
-            userOneEmail = itemView.findViewById(R.id.textView5);
-            userTwoEmail = itemView.findViewById(R.id.textView6);
+            driverEmail = itemView.findViewById(R.id.textView5);
+            riderEmail = itemView.findViewById(R.id.textView6);
             completedButton = itemView.findViewById(R.id.button5);
         }
     }
@@ -111,8 +111,8 @@ public class RidesRecyclerAdapter
 
         if(pageType.equals("myRides")) {
                 holder.acceptButton.setVisibility(View.GONE);
-                holder.userOneEmail.setVisibility(View.GONE);
-                holder.userTwoEmail.setVisibility(View.GONE);
+                holder.riderEmail.setVisibility(View.GONE);
+                holder.driverEmail.setVisibility(View.GONE);
                 holder.completedButton.setVisibility(View.GONE);
                 holder.editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -151,6 +151,8 @@ public class RidesRecyclerAdapter
             holder.acceptButton.setVisibility(View.GONE);
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
+            holder.driverEmail.setText("Driver: " + ride.getDriver());
+            holder.riderEmail.setText("Passenger: " + ride.getRider());
             holder.completedButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -195,8 +197,8 @@ public class RidesRecyclerAdapter
         } else if (pageType.equals("rideRequests")){
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
-            holder.userOneEmail.setVisibility(View.GONE); //these
-            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.driverEmail.setVisibility(View.GONE); //these
+            holder.riderEmail.setVisibility(View.GONE);
             holder.completedButton.setVisibility(View.GONE);
             holder.acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -219,8 +221,8 @@ public class RidesRecyclerAdapter
         } else if (pageType.equals("rideOffers")){
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
-            holder.userOneEmail.setVisibility(View.GONE); //these
-            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.driverEmail.setVisibility(View.GONE); //these
+            holder.riderEmail.setVisibility(View.GONE);
             holder.completedButton.setVisibility(View.GONE);
             holder.acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -243,8 +245,8 @@ public class RidesRecyclerAdapter
         } else {
             holder.editButton.setVisibility(View.GONE);
             holder.deleteButton.setVisibility(View.GONE);
-            holder.userOneEmail.setVisibility(View.GONE); //these
-            holder.userTwoEmail.setVisibility(View.GONE);
+            holder.driverEmail.setVisibility(View.GONE); //these
+            holder.riderEmail.setVisibility(View.GONE);
             holder.completedButton.setVisibility(View.GONE);
             holder.acceptButton.setOnClickListener(new View.OnClickListener() {
                 @Override
