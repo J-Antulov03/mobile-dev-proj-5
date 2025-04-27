@@ -88,7 +88,7 @@ public class PostedRidesFragment extends Fragment {
                     Log.d("id", "Curr User ID: " + userId);
                     Log.d("id2", "Current User ID: " + ride.getAuthor());
 
-                    if((ride.getAuthor().equals(userId)) && (!ride.isCompleted())) {
+                    if((ride.getAuthor().equals(userId)) && (!ride.isCompleted()) && (!ride.getAccepted())) {
                         rideList.add(ride);
                     }
                     Log.d(DEBUG_TAG, "ValueEventListener: added: " + ride);
