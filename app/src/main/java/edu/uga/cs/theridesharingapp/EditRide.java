@@ -21,6 +21,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
+/**
+ * An activity for editing an existing ride posted by the current user.
+ */
 public class EditRide extends AppCompatActivity {
 
     public static final String DEBUG_TAG = "AddRideActivity";
@@ -35,8 +38,10 @@ public class EditRide extends AppCompatActivity {
 
     private String key;
 
-
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,6 +69,9 @@ public class EditRide extends AppCompatActivity {
 
     }
 
+    /**
+     * A method for setting the default date to now.
+     */
     private void showDateTimePicker() {
         Calendar currentDate = Calendar.getInstance();
 
@@ -83,11 +91,17 @@ public class EditRide extends AppCompatActivity {
                 currentDate.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    /**
+     * Method for updating the date.
+     */
     private void updateDateDisplay() {
         dateView.setText(android.text.format.DateFormat.getDateFormat(this).format(selectedDateTime.getTime()) + " " +
                 android.text.format.DateFormat.getTimeFormat(this).format(selectedDateTime.getTime()));
     }
 
+    /**
+     * Button click listener for accepting the edit.
+     */
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {

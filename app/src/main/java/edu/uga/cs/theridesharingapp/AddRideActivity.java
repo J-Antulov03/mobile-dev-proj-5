@@ -25,7 +25,9 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.Calendar;
 
-
+/**
+ * Activity for adding a new ride to the database.
+ */
 public class AddRideActivity extends AppCompatActivity {
 
     public static final String DEBUG_TAG = "AddRideActivity";
@@ -38,8 +40,10 @@ public class AddRideActivity extends AppCompatActivity {
     private RadioButton requestOption; //true
     private Calendar selectedDateTime;
 
-
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +69,9 @@ public class AddRideActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * Method for setting the date to current time.
+     */
     private void showDateTimePicker() {
         Calendar currentDate = Calendar.getInstance();
 
@@ -84,11 +91,17 @@ public class AddRideActivity extends AppCompatActivity {
                 currentDate.get(Calendar.DAY_OF_MONTH)).show();
     }
 
+    /**
+     * Method for updating the date.
+     */
     private void updateDateDisplay() {
         dateView.setText(android.text.format.DateFormat.getDateFormat(this).format(selectedDateTime.getTime()) + " " +
                 android.text.format.DateFormat.getTimeFormat(this).format(selectedDateTime.getTime()));
     }
 
+    /**
+     * Button click listener for finalizing creation.
+     */
     private class ButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {

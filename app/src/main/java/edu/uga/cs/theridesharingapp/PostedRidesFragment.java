@@ -35,6 +35,9 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+/**
+ * A fragment displaying rides posted by the current user.
+ */
 public class PostedRidesFragment extends Fragment {
 
     public static final String DEBUG_TAG = "RideOffersFragment";
@@ -55,6 +58,12 @@ public class PostedRidesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_posted_rides, container, false);
     }
 
+    /**
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
