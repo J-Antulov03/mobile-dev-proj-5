@@ -5,6 +5,9 @@ import android.text.format.DateFormat;
 
 import java.util.Date;
 
+/**
+ * Ride object
+ */
 public class Ride {
 
     //date = date and time (upgraded now)
@@ -29,7 +32,9 @@ public class Ride {
     private boolean recipientConfirmation;
     private boolean isCompleted;
 
-
+    /**
+     * Ride Constructor
+     */
     public Ride()
     {
         this.key = null;
@@ -46,6 +51,7 @@ public class Ride {
         this.recipientConfirmation = false;
         this.isCompleted = false;
     }
+
 
     public Ride(Date date, String startLoc, String destLoc, Boolean accepted, Boolean rideType) {
         this.key = null;

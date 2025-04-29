@@ -23,6 +23,9 @@ import com.google.firebase.database.ServerValue;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Recycler Adapter for the showing of ride objects in fragments.
+ */
 public class RidesRecyclerAdapter
                     extends RecyclerView.Adapter<RidesRecyclerAdapter.RideHolder>{
 
@@ -281,6 +284,11 @@ public class RidesRecyclerAdapter
         }
     }
 
+    /**
+     * Method to delete a ride from the database.
+     *
+     * @param ride
+     */
     private void deleteRide(Ride ride) {
         DatabaseReference rideRef = FirebaseDatabase.getInstance()
                 .getReference("rides")
@@ -300,7 +308,4 @@ public class RidesRecyclerAdapter
                     Toast.makeText(context, "Delete failed: " + e.getMessage(), Toast.LENGTH_LONG).show();
                 });
     }
-
-
-
 }

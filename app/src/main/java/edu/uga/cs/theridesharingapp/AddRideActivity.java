@@ -129,51 +129,6 @@ public class AddRideActivity extends AppCompatActivity {
                     .addOnFailureListener(e -> {
                         Toast.makeText(getApplicationContext(), "Failed to create ride", Toast.LENGTH_SHORT).show();
                     });
-
-
-
-            /*Boolean rideType;
-            int selectedId = radioGroup.getCheckedRadioButtonId();
-
-            if (selectedId == R.id.radioButton2) { // Request
-                rideType = true;
-            } else if (selectedId == R.id.radioButton1) { // Offer
-                rideType = false;
-            } else {
-                // No selection made
-                Toast.makeText(getApplicationContext(), "Please select ride type", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            final Ride ride = new Ride(date, startLoc, destLoc, rideType); //oof
-
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference myRef = database.getReference("rides");
-
-            myRef.push().setValue( ride )
-                    .addOnSuccessListener( new OnSuccessListener<Void>() {
-                        @Override
-                        public void onSuccess(Void aVoid) {
-                            // Show a quick confirmation
-                            Toast.makeText(getApplicationContext(), "ride created for " + ride.getAuthor(),
-                                    Toast.LENGTH_SHORT).show();
-
-                            // Clear the EditTexts for next use.
-                            dateView.setText("");
-                            startLocView.setText("");
-                            destLocView.setText("");
-                            radioGroup.clearCheck(); // Clear radio selection
-
-                        }
-                    })
-                    .addOnFailureListener( new OnFailureListener() {
-                        @Override
-                        public void onFailure( @NonNull Exception e ) {
-                            Toast.makeText( getApplicationContext(), "Failed to create a ride for " + ride.getAuthor(),
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                    });
-*/
         }
     }
 }

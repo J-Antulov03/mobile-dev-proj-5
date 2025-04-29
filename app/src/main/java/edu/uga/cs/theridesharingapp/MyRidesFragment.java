@@ -24,12 +24,31 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * A fragment that displays information about rides pertaining to the current user
+ */
 public class MyRidesFragment extends Fragment {
 
+    /**
+     * Default constructor
+     */
     public MyRidesFragment() {
         // Required empty public constructor
     }
 
+    /**
+     *
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +56,12 @@ public class MyRidesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_my_rides, container, false);
     }
 
+    /**
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -68,6 +93,11 @@ public class MyRidesFragment extends Fragment {
         });
     }
 
+    /**
+     * loading a fragment.
+     *
+     * @param fragment
+     */
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -77,6 +107,9 @@ public class MyRidesFragment extends Fragment {
         transaction.commit();
     }
 
+    /**
+     * A button listener that opens AddRideActivity.
+     */
     private class AddRideButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -85,6 +118,9 @@ public class MyRidesFragment extends Fragment {
         }
     }
 
+    /**
+     * A button listener that opens PostedRidesFragment.
+     */
     private class postedRidesButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -92,6 +128,9 @@ public class MyRidesFragment extends Fragment {
         }
     }
 
+    /**
+     * A button listener that opens AcceptedRidesFragment.
+     */
     private class acceptedRidesButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {

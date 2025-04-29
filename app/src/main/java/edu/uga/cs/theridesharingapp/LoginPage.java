@@ -23,7 +23,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-
+/**
+ * LoginPage is the page the app opens to, where the user is prompted to either log in or register
+ */
 public class LoginPage extends AppCompatActivity {
 
     public static final String TAG = "LoginPage";
@@ -39,6 +41,10 @@ public class LoginPage extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +68,9 @@ public class LoginPage extends AppCompatActivity {
         } );
     }
 
+    /**
+     * Button click listener for the login button
+     */
     private class ButtonClickListener implements View.OnClickListener {
 
         @Override

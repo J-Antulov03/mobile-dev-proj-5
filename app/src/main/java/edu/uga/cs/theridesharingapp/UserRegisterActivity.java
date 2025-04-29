@@ -23,6 +23,9 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+/**
+ * Activity for registering a new user
+ */
 public class UserRegisterActivity extends AppCompatActivity {
 
     private static final String DEBUG_TAG = "UserRegisterActivity";
@@ -30,6 +33,10 @@ public class UserRegisterActivity extends AppCompatActivity {
     private EditText emailEditText;
     private EditText passworEditText;
 
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +50,9 @@ public class UserRegisterActivity extends AppCompatActivity {
         registerButton.setOnClickListener(new RegisterButtonClickListener());
     }
 
+    /**
+     * Button click listener for registering
+     */
     private class RegisterButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {

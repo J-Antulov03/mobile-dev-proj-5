@@ -23,12 +23,30 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+/**
+ * A fragment showing information on posted rides.
+ */
 public class RidesFragment extends Fragment {
 
+    /**
+     * Default constructor
+     */
     public RidesFragment() {
         // Required empty public constructor
     }
 
+    /**
+     *
+     * @param inflater The LayoutInflater object that can be used to inflate
+     * any views in the fragment,
+     * @param container If non-null, this is the parent view that the fragment's
+     * UI should be attached to.  The fragment should not add the view itself,
+     * but this can be used to generate the LayoutParams of the view.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     *
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +54,12 @@ public class RidesFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_rides, container, false);
     }
 
+    /**
+     *
+     * @param view The View returned by {@link #onCreateView(LayoutInflater, ViewGroup, Bundle)}.
+     * @param savedInstanceState If non-null, this fragment is being re-constructed
+     * from a previous saved state as given here.
+     */
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -66,6 +90,11 @@ public class RidesFragment extends Fragment {
         });
     }
 
+    /**
+     * Loads fragment
+     *
+     * @param fragment
+     */
     private void loadFragment(Fragment fragment) {
         FragmentManager fragmentManager = getParentFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
@@ -73,19 +102,11 @@ public class RidesFragment extends Fragment {
         transaction.replace(R.id.fragmentContainerView1, fragment);
 
         transaction.commit();
-
-        /*Fragment currentFragment = fragmentManager.findFragmentById(R.id.fragmentContainerView1);
-        if (currentFragment != null) {
-            transaction.remove(currentFragment);
-        }
-
-        //fragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
-        transaction.replace(R.id.fragmentContainerView1, fragment);
-        //transaction.addToBackStack(null);
-        transaction.commit();*/
     }
 
+    /**
+     * On click listener for opening the AddRideActivity
+     */
     private class AddRideButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -94,6 +115,9 @@ public class RidesFragment extends Fragment {
         }
     }
 
+    /**
+     * On click listener for opening RideOffersFragment
+     */
     private class OfferButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
@@ -102,6 +126,9 @@ public class RidesFragment extends Fragment {
         }
     }
 
+    /**
+     * On click listener for opening RideRequestsFragment
+     */
     private class RequestButtonClickListener implements View.OnClickListener {
         @Override
         public void onClick(View view) {
